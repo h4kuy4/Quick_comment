@@ -3,7 +3,6 @@
 A simple plugin to comment your code with a hotkey written in lua.
 ## Usage
 At `normal` mode press `co` will comment the uncommented line or uncomment the commented line under curosr.  
-At `visual` mode press `co` will comment the uncommented lines and uncomment the commented lines you select.  
 e.g.
 ```lua
 print("Hello World!")
@@ -17,6 +16,7 @@ Press `co` again, it will be uncommented like this.
 print("Hello World!")
 ```
   
+At `visual` mode press `co` will comment the uncommented lines and uncomment the commented lines you select.  
 ```lua
 print("Hello World!")
 print("Hello World!")
@@ -59,5 +59,5 @@ print("Hello World!")
 print("Hello World!")
 ```
 
-##Config
+## Config
 
