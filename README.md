@@ -60,4 +60,13 @@ print("Hello World!")
 ```
 
 ## Config
-
+```lua
+require('quick_comment').setup{
+    comments = {
+      --filetype   comment operator
+        c        = "//"
+        lua      = "--"
+    }
+    shortcut = "co"
+}
+```
