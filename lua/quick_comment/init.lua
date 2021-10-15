@@ -83,3 +83,4 @@ function setup(user_config)
     vim.api.nvim_set_keymap("n", config.shortcut, ":lua _G.n_comment()<CR>", {noremap = true})
 end
 
+return {setup = setup}
