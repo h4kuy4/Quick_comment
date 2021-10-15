@@ -1,15 +1,18 @@
 local fn = vim.fn
 
 config = {
-    cpp    = "//",
-    c      = "//",
-    java   = "//",
-    go     = "//",
-    kt     = "//",
-    rust   = "//",
-    sh     = "#",
-    py     = "#",
-    lua    = "--",
+    comments = {    
+        cpp    = "//",
+        c      = "//",
+        java   = "//",
+        go     = "//",
+        kt     = "//",
+        rust   = "//",
+        sh     = "#",
+        py     = "#",
+        lua    = "--",
+    },
+    shortcut = "co",
 }
 
 local function is_commented(line, commentForm)
@@ -60,6 +63,10 @@ function _G.n_comment()
     end
 end
 
--- return{comment = comment}
-vim.api.nvim_set_keymap("v", "co", ":lua _G.v_comment()<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "co", ":lua _G.n_comment()<CR>", {noremap = true})
+function setup(user_config)
+    config = vim.tbl_deep_extend("force", config, user_config or {})
+    vim.api.nvim_set_keymap("v", shortcut, ":lua _G.v_comment()<CR>", {noremap = true})
+    vim.api.nvim_set_keymap("n", shortcut, ":lua _G.n_comment()<CR>", {noremap = true})
+
+end
+
