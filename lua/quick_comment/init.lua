@@ -67,8 +67,7 @@ end
 
 function setup(user_config)
     config = vim.tbl_deep_extend("force", default_config, user_config or {})
-    vim.api.nvim_set_keymap("v", shortcut, ":lua _G.v_comment()<CR>", {noremap = true})
-    vim.api.nvim_set_keymap("n", shortcut, ":lua _G.n_comment()<CR>", {noremap = true})
-
+    vim.api.nvim_set_keymap("v", config.shortcut, ":lua _G.v_comment()<CR>", {noremap = true})
+    vim.api.nvim_set_keymap("n", config.shortcut, ":lua _G.n_comment()<CR>", {noremap = true})
 end
 
