@@ -66,13 +66,15 @@ function _G.n_comment()
 end
 
 local function merge_tbl(tbl1, tbl2)
-    if tbl1.comments ~= nil then
-        for k, v in pairs(tbl1.comments) do 
-            tbl2.comments[k] = v
+    if tbl1 ~= nil then
+        if tbl1.comments ~= nil then
+            for k, v in pairs(tbl1.comments) do 
+                tbl2.comments[k] = v
+            end
         end
-    end
-    if tbl1.shortcut ~= nil then
-        tbl2.shortcut = tbl1.shortcut
+        if tbl1.shortcut ~= nil then
+            tbl2.shortcut = tbl1.shortcut
+        end
     end
     return tbl2
 end
