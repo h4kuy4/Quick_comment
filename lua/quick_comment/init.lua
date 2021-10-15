@@ -1,6 +1,6 @@
 local fn = vim.fn
 
-default_config = {
+config = {
     comments = {
         cpp    = "//",
         c      = "//",
@@ -14,8 +14,6 @@ default_config = {
     },
     shortcut = "co",
 }
-
-config = {}
 
 local function is_commented(line, commentForm)
     if string.sub(line, 1, string.len(commentForm)) == commentForm then
@@ -36,7 +34,7 @@ end
 function _G.v_comment()
     local lstart = fn.getpos("'<")[2]
     local lend = fn.getpos("'>")[2]
-    local commentForm = config[vim.bo.filetype]
+    local commentForm = config.comments[vim.bo.filetype]
     if commentForm == nil then
         print("This filetype is not supported!")
         return
@@ -52,7 +50,7 @@ function _G.v_comment()
 end
 
 function _G.n_comment()
-    local commentForm = config[vim.bo.filetype]
+    local commentForm = config.comments[vim.bo.filetype]
     if commentForm == nil then
         print("This filetype is not supported!")
         return
@@ -65,22 +63,21 @@ function _G.n_comment()
     end
 end
 
-local function merge_tbl(tbl1, tbl2)
-    if tbl1 ~= nil then
-        if tbl1.comments ~= nil then
-            for k, v in pairs(tbl1.comments) do 
-                tbl2.comments[k] = v
+local function merge_tbl(tbl)
+    if tbl ~= nil and tbl ~= {} then
+        if tbl.comments ~= nil and tbl.comments ~= {} then
+            for k, v in pairs(tbl.comments) do 
+                config.comments[k] = v
             end
         end
-        if tbl1.shortcut ~= nil then
-            tbl2.shortcut = tbl1.shortcut
+        if tbl.shortcut ~= nil then
+            config.shortcut = tbl.shortcut
         end
     end
-    return tbl2
 end
 
 function setup(user_config)
-    config = merge_tbl(user_config, default_config)
+    merge_tbl(user_config)
     vim.api.nvim_set_keymap("v", config.shortcut, ":lua _G.v_comment()<CR>", {noremap = true})
     vim.api.nvim_set_keymap("n", config.shortcut, ":lua _G.n_comment()<CR>", {noremap = true})
 end
