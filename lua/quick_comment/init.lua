@@ -65,8 +65,20 @@ function _G.n_comment()
     end
 end
 
+local function merge_tbl(tbl1, tbl2)
+    if tbl1.comments != nil then
+        for k, v in pairs(tbl1.comments) do 
+            tbl2.comments[k] = v
+        end
+    end
+    if tbl1.shortcut != nil then
+        tbl2.shortcut = tbl1.shortcut
+    end
+    return tbl2
+end
+
 function setup(user_config)
-    config = vim.tbl_deep_extend("force", default_config, user_config or {})
+    config = merge_tbl(default_config, user_config or {})
     vim.api.nvim_set_keymap("v", config.shortcut, ":lua _G.v_comment()<CR>", {noremap = true})
     vim.api.nvim_set_keymap("n", config.shortcut, ":lua _G.n_comment()<CR>", {noremap = true})
 end
