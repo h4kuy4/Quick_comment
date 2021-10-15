@@ -1,7 +1,7 @@
 local fn = vim.fn
 
-config = {
-    comments = {    
+default_config = {
+    comments = {
         cpp    = "//",
         c      = "//",
         java   = "//",
@@ -14,6 +14,8 @@ config = {
     },
     shortcut = "co",
 }
+
+config = {}
 
 local function is_commented(line, commentForm)
     if string.sub(line, 1, string.len(commentForm)) == commentForm then
@@ -64,7 +66,7 @@ function _G.n_comment()
 end
 
 function setup(user_config)
-    config = vim.tbl_deep_extend("force", config, user_config or {})
+    config = vim.tbl_deep_extend("force", default_config, user_config or {})
     vim.api.nvim_set_keymap("v", shortcut, ":lua _G.v_comment()<CR>", {noremap = true})
     vim.api.nvim_set_keymap("n", shortcut, ":lua _G.n_comment()<CR>", {noremap = true})
 
