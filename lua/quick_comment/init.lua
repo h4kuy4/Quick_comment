@@ -78,7 +78,7 @@ local function merge_tbl(tbl1, tbl2)
 end
 
 function setup(user_config)
-    config = merge_tbl(default_config, user_config or {})
+    config = merge_tbl(default_config, user_config)
     vim.api.nvim_set_keymap("v", config.shortcut, ":lua _G.v_comment()<CR>", {noremap = true})
     vim.api.nvim_set_keymap("n", config.shortcut, ":lua _G.n_comment()<CR>", {noremap = true})
 end
